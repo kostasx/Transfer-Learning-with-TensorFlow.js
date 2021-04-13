@@ -1,0 +1,35 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: aliceblue;
+}
+
+#gameCanvas {
+  display: block;
+  position: fixed;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border: 1px solid black;
+  background-color: white;
+}
+
+div {
+  font-family: "Arial Narrow";
+  display: block;
+  margin-left: 1em;
+}
+
+div span {
+  color: red;
+}
+footer {
+  position: fixed;
+  bottom: 0;
+  padding: 20px;
+  text-align: center;
+  left: 0;
+  right: 0;
+}
