@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CodePen - Paddle Ball Brick Game</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body>
+    <!-- partial:index.partial.html -->
+    <canvas id="gameCanvas" width=1000 height=600></canvas>
+
+    <div>
+        <p><span>"Space"</span> to release ball <br />
+            <span>&larr;</span> to move left <br />
+            <span>&rarr;</span> to move right <br /> + <span>"Shift"</span> to move faster
+        </p>
+    </div>
+
+    <!-- PLACE TF.JS CODE HERE >>> -->
+    <button type="button" onclick="initTF()">Start</button>
+    <div id="webcam-container"></div>
+    <div id="label-container"></div>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+    <!-- <<< PLACE TF.JS CODE HERE -->
+    
+    <!-- partial -->
+    <script src="./script.tensorflow.js"></script>
+
+    <footer>
+      <a href="https://codepen.io/AfiqRosli/pen/oooZzL">Copyright &copy; 2021 by Afiq Rosli</a>
+    </footer>
+
+</body>
+
+</html>
