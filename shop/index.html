@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Image Classification using TensorFlow.js</title>
+    <meta name="description" content="Enhancing the Shopping experience using Machine Learning" />
+    <meta name="keywords" content="machine learning, tensorflow, image classification" />
+    <meta name="author" content="Kostas Minaidis" />
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.2.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+
+<body class="color-2">
+
+    <div class="container">
+
+        <header class="codrops-header">
+            <h1>Señor Tensor
+                <span>A Machine Learning Powered Shopping Experience</span>
+            </h1>
+        </header>
+
+        <main>
+            <div class="dummy-browser">
+                <div class="dummy-grid dummy-grid--filled dummy-grid--sidebar">
+
+                    <!-- CHECKOUT -->
+                    <div class="dummy-sidebar">
+                        <div class="checkout">
+                            <a class="checkout__button" href="#">Start</a>
+							<div id="webcam">
+                                <div id="success" class="check">&check;</div>
+                                <div id="failure" class="check">&cross;</div>
+                            </div>
+                            <div class="checkout__order">
+                                <div class="checkout__order-inner">
+                                    <table class="checkout__summary">
+                                        <thead>
+                                            <tr>
+                                                <th>Your Order</th>
+                                                <th>Price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th colspan="2">Total: $<span class="checkout__total">0</span></th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                    <button disabled class="checkout__option checkout__option--loud scan loading">Loading...</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PRODUCTS -->
+                    <div class="dummy-grid__item lipton" style="background-image: url(img/campbells.jpg);">
+                        <div class="details">
+                            <p><strong>Tomato Soup</strong></p>
+                            <p>Price: $5</p>
+                        </div>
+                    </div>
+                    <div class="dummy-grid__item campbells" style="background-image: url(img/lipton.jpg);">
+						<div class="details">
+							<p><strong>Mandarin Green Tea</strong></p>
+                            <p>Price: $8</p>
+						</div>
+					</div>
+                    <div class="dummy-grid__item uncle-bens" style="background-image: url(img/uncle-bens.jpg);">
+						<div class="details">
+							<p><strong>Parboiled Rice</strong></p>
+                            <p>Price: $7</p>
+						</div>
+					</div>
+                </div>
+                <footer>
+                    <a href="https://tympanus.net/codrops/2015/01/22/ideas-checkout-effects/">Template by Tympanus/Codrops</a>
+                </footer>
+            </div>
+        </main>
+
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
