@@ -1,0 +1,455 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Custom Image Classifier in TensorFlow.js</title>
+
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/black.css" id="theme">
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+
+    <!-- Custom Styling -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif !important;
+        }
+        body.reveal-viewport {
+            background: linear-gradient( 45deg, #542907 0%, rgba(2, 0, 36, 1) 20%,rgba(2, 0, 36, 1) 20%, rgba(2, 0, 36, 1) 65%, rgba(66, 80, 102, 1) 100%);
+        }
+        
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4,
+        .reveal h5,
+        .reveal h6 {
+            text-transform: none;
+        }
+        
+        strong,
+        a {
+            color: #FF6F00;
+        }
+        .reveal strong, .reveal b {
+            font-weight: 500;
+        }        
+        ul.small {
+            font-size: 2rem;
+        }
+        
+        ul.xs,
+        strong.xs {
+            font-size: 1.5rem;
+        }
+		table.small {
+			font-size: 2rem;
+		}
+        p.small {
+            font-size: 1.5rem;
+            max-width: 60ch;
+            margin: 0 auto;
+            line-height: 2.2rem;
+        }
+		p.xs, span.xs {
+			font-size: 1rem;
+		}
+        .border {
+            border: 1px solid white;
+        }
+        .highlight {
+            color: #ff6f02;
+        }
+		.semi {
+			opacity: 0.5;
+		}
+		.bg-white {
+			background-color: #fff !important;
+		}
+        .text-left {
+            text-align: left;
+        }
+        .w640 {
+            max-width: 640px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- INTRO -->
+            <section>
+                <section>
+                <p class="small">A Gentle Introduction to Transfer Learning</p>
+                    <h2>Custom Image Classifiers<br>with <strong>TensorFlow.js</strong></h2>
+                <p class="small">By Kostas Minaidis</p>
+                </section>
+                <section>
+                    <p><a href="https://github.com/kostasx/Transfer-Learning-with-TensorFlow.js">&rtrif; GitHub Repository &ltrif;</a></p>
+                </section>
+            </section>
+
+            <!-- TECHNOLOGIES -->
+            <section>
+                <h2>Technologies:</h2>
+                <ul>
+                    <li class="fragment">
+                        <strong>JavaScript</strong>
+                        <ul class="xs">
+                            <li class="fragment">(The Programming language)</li>
+                        </ul>
+                    </li>
+                    <li class="fragment">
+                        <strong>TensorFlow.JS</strong>
+                        <ul class="xs">
+                            <li class="fragment">(The Machine Learning Library)</li>
+                        </ul>
+                    </li>
+                    <li class="fragment">
+                        <strong>MobileNet</strong>
+                        <ul class="xs">
+                            <li class="fragment">(The Machine Learning Model)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- OBJECTIVES -->
+            <section>
+                <h2>Objectives</h2>
+                <ul class="small">
+                    <li class="fragment">Intro to <strong>Machine Learning</strong></li>
+                    <li class="fragment">Intro to <strong>Image Classification</strong> with ML</li>
+                    <li class="fragment">Intro to <strong>Transfer Learning</strong> in ML</li>
+                </ul>
+            </section>
+
+            <!-- What is Machine Learning? -->
+            <section>
+                <section>
+                    <h6>What is</h6>
+                    <h2><strong>Machine Learning?</strong></h2>
+                </section>
+                <section>
+                    <h6>A short story...</h6>
+                </section>
+                <section>
+                    <p class="text-left fragment fade-in-then-semi-out small">
+                        Once upon a time there was a little girl with a laptop on fire in the middle of the street.
+                    </p>
+                    <p class="text-left fade-in-then-semi-out small fragment">
+                        The girl's name was Chloe Price, and she was the daughter of Nathan Prescott, the CEO of Prescott Industries. She was also the only child in her family to attend Prescott's private school, Blackwell Academy. 
+                    </p>
+                    <p class="text-left fade-in-then-semi-out small fragment">
+                        Chloe's mother, Rachel Amber, had died in a car accident when Chloe was just a few months old, leaving Chloe and her older sister, Max, to raise themselves on their own. 
+                    </p>
+                    <p class="text-left fade-in-then-semi-out small fragment">
+                        It was at Blackwell that Chloe met her future best friend, Warren Vidic, who would become her mentor and mentor-protégé for the rest of her life. The two would go on to form a friendship that would last a lifetime, as well as form the foundation of Max's life as a hero.
+                    </p>
+                    <p class="small">
+                        <strong class="small fragment">What you've just read was a fictitious story created by a Machine trained on millions of text from the Internet.</strong>
+                    </p>
+                    <p class="small">
+                        <strong class="small fragment">(Only the first paragraph was written by a human)</strong>
+                    </p>
+                </section>
+                <section>
+                    <p>How did we get here?</p>
+                </section>
+
+                <!-- THE OLD WAY OF USING COMPUTERS -->
+                <section>
+                    <h6>The &quot;old&quot; way of using computers:</h6>
+                    <ul class="small">
+                        <li class="fragment">
+                            Provide some data as input to the computer <strong>(4,6)</strong>
+                        </li>
+                        <li class="fragment">
+                            Provide a set of instructions (program) <strong>(+)</strong>
+                        </li>
+                        <li class="fragment">
+                            The computer follows the instructions and processes the data accordingly to produce the required result:
+                        </li>
+                        <li class="fragment">
+                            <strong>4 + 6</strong>
+                            <strong class="fragment">=</strong>
+                            <strong class="fragment">10</strong>
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- THE NEW WAY OF USING COMPUTERS: MACHINE LEARNING -->
+                <section>
+                    <h6>The &quot;new&quot; way of using computers:</h6>
+                    <ul class="xs">
+                        <li class="fragment">
+                            Provide (lots of) data as input to the computer
+                            <br>
+                            <strong class="fragment">(e.g., <a href="img/mnist.jpg" target="_blank">hand written characters)</a></strong>
+                        </li>
+                        <li class="fragment">
+                            Accompany each piece of data with some kind of label
+                            <br>
+                            <strong class="fragment">(This character depicts letter A, this one depicts letter B, etc.)</strong>
+                        </li>
+                        <li class="fragment">
+                            Use various algorithms to &quot;train&quot; the machine on these labelled examples.<br><strong class="fragment">The machine &quot;learns&quot; to recognize each character.</strong>
+                        </li>
+                        <li class="fragment">
+                            Provide new (unseen before) data to the trained ML <strong>model&midast;</strong>.
+                        </li>
+                        <li class="fragment">
+                            Ask the machine to predict the &quot;label&quot; for this new data. 
+                        </li>
+                        <li class="fragment">
+                            That's Machine Learning in a nutshell!
+                            <strong class="fragment"><a target="_blank" href="https://kostasx.github.io/Transfer-Learning-with-TensorFlow.js/emnist/">(Demo)</a></strong>
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- ADVANTAGES OF ML -->
+                <section>
+                    <h6>Advantages?</h6>
+                    <ul class="small">
+                        <li class="fragment">No need to rewrite the program for new data</li>
+                        <li class="fragment">
+                            Can work with tasks that cannot be programmed
+                            <br><strong class="fragment">
+                                (How can we program an image classification algorithm?)
+                            </strong>
+                        </li>
+                        <li class="fragment">
+                            Can outperform humans in lots of tasks, mainly classification and prediction.
+                        </li>
+                    </ul>
+                    <p class="fragment">
+                        <strong class="xs">Read More<br>&dtrif;</strong>
+                    </p>
+                </section>
+
+                <!-- READ MORE -->
+                <section>
+                    <h6>References</h6>
+                    <ul class="small">
+                        <li>
+                            <a href="https://www.youtube.com/watch?v=OeU5m6vRyCk">AI: What is Machine Learning? (Code.org)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.youtube.com/watch?v=HcqpanDadyQ">What is Machine Learning? (Google)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.youtube.com/watch?v=TTEEkMRZAC8">Visual Intro to Machine Learning and Deep Learning
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.youtube.com/watch?v=aircAruvnKk">But what is a Neural Network?</a>
+                        </li>
+                    </ul>
+                </section>
+
+            </section>
+
+            <!-- What is Image Classification -->
+            <section>
+                <section>
+                    <h6>Understanding</h6>
+                    <h2><strong>Image Classification</strong></h2>
+                    <h6>Using Machine Learning</h6>
+                </section>
+                <section>
+                    <small>What is <strong>Image Classification</strong>?</small>
+                    <p class="fragment">The task of identifying what an image represents.</p>
+                    <p class="fragment">An image classification <strong>model</strong> is trained to recognize various <strong>classes</strong> of images.</p>
+                </section>
+                <section>
+                    <small>What is an example of an <strong>Image Classification</strong>?</small>
+                    <p class="fragment">You may train a model to recognize photos representing <strong>3</strong> different types of animals: <strong class="fragment">rabbits</strong><strong class="fragment">, hamsters</strong> <strong class="fragment">&amp; dogs.</strong></p>
+                </section>
+                <section>
+                    <small>How does <strong>Image Classification</strong> work?</small>
+                    <p class="fragment">During training, an image classification model is fed images and their associated <strong>labels</strong></p>
+                    <p class="fragment">Each label is the name of a distinct concept, or class, that the model will learn to recognize.</p>
+                </section>
+
+                <section>
+                    <small>How does <strong>Image Classification</strong> work?</small>
+                    <p class="fragment">Given sufficient training data (often hundreds or thousands of images per label), an image classification model can learn to predict whether new images belong to any of the classes it has been trained on.</p>
+                    <p class="fragment">This process of prediction is called <strong>inference.</strong></p>
+                </section>
+
+                <!-- HOT DOG -->
+                <section>
+                    <h6>Image Classification:<br><strong class="fragment"> Silicon Valley Style...</strong></h6>
+                </section>
+                <section>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/pqTntG1RXSY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>                  
+                </section>
+
+                <section>
+                    <h6>Demo time!</h6>
+                    <p class="fragment">Train an Image Classification model <br>using <a href="">Teachable Machine</a></p>
+                    <ul class="xs w640">
+                        <li class="fragment">
+                            Teachable Machine uses a pre-trained Image Classification model named <strong>MobileNet&midast;</strong>
+                        </li>
+                        <li class="fragment">
+                            It also uses <strong>Transfer Learning</strong> to classify new images on top of MobileNet. 
+                        </li>
+                        <li class="fragment">
+                            <strong>(More about Transfer Learning in a bit)</strong>
+                        </li>
+                    </ul>
+                    <p class="fragment">
+                        <strong class="xs">Read More<br>&dtrif;</strong>
+                    </p>
+                </section>
+
+                <section>
+                    <h6>Terms</h6>
+                    <ul class="xs">
+                        <li><strong>MobileNet</strong> is a Machine Learning model for Image Classification and Mobile Vision. What makes MobileNet special is that it uses less computation power to run or apply transfer learning to.
+                        </li>
+                        <li>This makes it a perfect fit for Mobile devices,embedded systems and computers without GPU or low computational efficiency with compromising significantly with the accuracy of the results. <a href="https://medium.com/analytics-vidhya/image-classification-using-mobilenet-in-the-browser-b69f2f57abf">(Source)</a></li>
+                    </ul>
+                    <hr>
+                    <h6>References:</h6>
+                    <ul class="small">
+                        <li>
+                            <a href="https://www.tensorflow.org/lite/examples/image_classification/overview">Image classification Overview</a>
+                        </li>
+                        <li><a href="https://www.youtube.com/watch?v=uSUOdu_5MPc">How computers are learning to be creative</a></li>
+                    </ul>
+                </section>
+
+            </section>
+
+            <section>
+                <section>
+                    <p class="small">Image Classification using</p>
+                    <h2><strong>Transfer Learning</strong></h2>
+                </section>
+                <section>
+                    <ul class="xs w640">
+                        <li class="small">
+                            <strong>Transfer learning</strong> (in Machine Learning) is the process of <strong>storing knowledge</strong> gained while solving one problem and <strong>applying it to a different</strong> but related <strong>problem</strong>.
+                        </li>
+                        <li class="fragment small">
+                            <em>&quot;This is somewhat like using the skills you learned in your previous job at your new exciting workplace.&quot;</em>
+                        </li>
+                        <li class="fragment small">
+                            For example, knowledge gained while learning to recognize cars could apply when trying to recognize trucks.
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h6>Coding Time!</h6>
+                    <p><a href="https://codelabs.developers.google.com/codelabs/tensorflowjs-teachablemachine-codelab#0">Transfer Learning Image Classifier<br>with <strong>TensorFlow.js</strong></a></p>
+                </section>
+            </section>
+
+            <!-- Google AutoML -->
+            <section>
+                <section>
+                    <h6>Heading for Production</h6>
+                    <h2><strong>Image Classification</strong><br>with Google AutoML Vision</h2>
+                </section>
+                <section>
+                    <h6>Why AutoML?</h6>
+                    <ul class="xs w640">
+                        <li class="fragment">
+                            <em>Cloud AutoML enables developers with limited machine learning expertise to train high-quality models specific to their business needs in minutes.</em>
+                        </li>    
+                        <li class="fragment">
+                            Traing using AutoML Vision, export the models and use them with TensorFlow.js
+                        </li>                    
+                        <li class="fragment">
+                            Large dataset support
+                        </li>
+                        <li class="fragment">
+                            Easy to deploy and scale models
+                        </li>
+                        <li class="fragment">
+                            Use REST and RPC APIs
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h6>References</h6>
+                    <ul class="xs w640">
+                        <li>
+                            <a href="https://www.youtube.com/watch?v=GbLQE2C181U">Introducing Cloud AutoML
+                            </a>
+                        </li>
+                        <li><a href="https://cloud.google.com/automl/">AutoML</a></li>
+                        <li>
+                            <a href="https://medium.com/light-it/image-classification-with-google-auto-ml-7d88d579fe8a">Image Classification with Google Auto ML</a>
+                        </li>
+                        <li>
+                            <a href="https://cloud.google.com/vision/automl/docs/beginners-guide">AutoML Vision Beginner's guide</a>
+                        </li>
+                        <li>
+                            <a href="https://cloud.google.com/ai-platform-unified/docs/tutorials/image-recognition-automl/training">Hello image data: Training an AutoML image classification model</a>
+                        </li>
+                        <li>
+                            <a href="https://cloud.google.com/vision/automl/docs/tensorflow-js-tutorial">Edge TensorFlow.js tutorial</a>
+                        </li>
+                        <li>
+                            <a href="https://www.npmjs.com/package/@tensorflow/tfjs-automl">AutoML Edge API: Load and run models produced by AutoML Edge on TensorFlow.js</a>
+                        </li>
+                        <li>
+                            <a href="https://medium.com/tensorflow/build-and-deploy-tensorflow-js-models-with-the-power-of-automl-1985b8985083">Build and deploy TensorFlow.js models with the power of AutoML</a>
+                        </li>
+                    </ul>
+                </section>
+            </section>
+
+            <!-- About -->
+            <section>
+                <h6>Let's stay in touch. Find me on:</h6>
+                <p>
+                    <a href="https://www.linkedin.com/in/kostas-minaidis/">LinkedIn / </a>
+                    <a href="https://github.com/kostasx">GitHub / </a>
+                    <a href="https://twitter.com/kostas_mns">Twitter / </a>
+                    <a href="https://stackoverflow.com/users/4861760/kostasx">StackOverflow</a>
+                </p>
+            </section>
+
+            <!-- READ MORE -->
+            <section>
+                <p class="fragment">
+                    <strong class="xs">Read More<br>&dtrif;</strong>
+                </p>
+            </section>
+            
+        </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+        // More info about initialization & config:
+        // - https://revealjs.com/initialization/
+        // - https://revealjs.com/config/
+        Reveal.initialize({
+            hash: true,
+
+            // Learn about plugins: https://revealjs.com/plugins/
+            plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+        });
+    </script>
+</body>
+
+</html>
