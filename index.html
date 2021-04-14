@@ -78,6 +78,22 @@
         .w640 {
             max-width: 640px;
         }
+        .flex {
+            display: flex;
+        }
+        .flex a {
+            padding: 40px;
+            font-size: 0.5em;
+            display: grid;
+            place-items: center;
+            font-style: italic;
+        }
+        .flex a:before {
+            content: "\0275D"
+        }
+        .flex a:after {
+            content: "\0275E"
+        }
     </style>
 </head>
 
@@ -93,7 +109,15 @@
                 <p class="small">By Kostas Minaidis</p>
                 </section>
                 <section>
-                    <p><a href="https://github.com/kostasx/Transfer-Learning-with-TensorFlow.js">&rtrif; GitHub Repository &ltrif;</a></p>
+                    <h6>Inspiration?</h6>
+                    <div class="flex">
+                        <a class="fragment" href="https://www.linkedin.com/posts/world-economic-forum_a-lifeline-for-shoppers-in-rural-areas-activity-6775822864189915136-e7ju/" target="_blank">contactless shopping</a>
+                        <a class="fragment" target="_blank" href="https://www.bbc.com/news/business-56237988">Shops return to rural Sweden but are now staff-free</a>
+                        <a class="fragment" target="_blank" href="https://www.ft.com/content/c4b8af64-6c37-11e7-bfeb-33fe0c5b7eaa">China embraces era of staff-free shopping</a>
+                    </div>
+                </section>
+                <section>
+                    <p><a target="_blank" href="https://github.com/kostasx/Transfer-Learning-with-TensorFlow.js">&rtrif; GitHub Repository &ltrif;</a></p>
                 </section>
             </section>
 
@@ -236,6 +260,22 @@
                     </p>
                 </section>
 
+                <!-- LINEAR REGRESSION -->
+                <section>
+                    <h2>Training Algorithms</h2>
+                    <h6 class="fragment"><strong>Linear Regression</strong></h6>
+                    <p class="fragment"><a href="https://www.geogebra.org/graphing">(A Visual Introduction)</a></p>
+                </section>
+
+                <section>
+                    <iframe src="https://www.geogebra.org/graphing/y46yat59?embed" width="800" height="600" allowfullscreen style="border: 1px solid #e4e4e4;border-radius: 4px;" frameborder="0"></iframe>
+                </section>
+
+                <section>
+                    <h6>More features, means more dimensions</h6>
+                    <img src="img/hyperplane.png" alt="">
+                </section>
+                
                 <!-- READ MORE -->
                 <section>
                     <h6>References</h6>
@@ -282,6 +322,7 @@
                     <p class="fragment">Each label is the name of a distinct concept, or class, that the model will learn to recognize.</p>
                 </section>
 
+                <!-- HOW DOES IMAGE CLASSIFICATION WORK? -->
                 <section>
                     <small>How does <strong>Image Classification</strong> work?</small>
                     <p class="fragment">Given sufficient training data (often hundreds or thousands of images per label), an image classification model can learn to predict whether new images belong to any of the classes it has been trained on.</p>
@@ -321,6 +362,7 @@
                         <li><strong>MobileNet</strong> is a Machine Learning model for Image Classification and Mobile Vision. What makes MobileNet special is that it uses less computation power to run or apply transfer learning to.
                         </li>
                         <li>This makes it a perfect fit for Mobile devices,embedded systems and computers without GPU or low computational efficiency with compromising significantly with the accuracy of the results. <a href="https://medium.com/analytics-vidhya/image-classification-using-mobilenet-in-the-browser-b69f2f57abf">(Source)</a></li>
+                        <li>MobileNet <a target="_blank" href="https://github.com/tensorflow/tfjs-examples/blob/master/mobilenet/imagenet_classes.js">supported classes</a></li>
                     </ul>
                     <hr>
                     <h6>References:</h6>
@@ -334,6 +376,7 @@
 
             </section>
 
+            <!-- Transfer Learning -->
             <section>
                 <section>
                     <p class="small">Image Classification using</p>
@@ -354,7 +397,8 @@
                 </section>
                 <section>
                     <h6>Coding Time!</h6>
-                    <p><a href="https://codelabs.developers.google.com/codelabs/tensorflowjs-teachablemachine-codelab#0">Transfer Learning Image Classifier<br>with <strong>TensorFlow.js</strong></a></p>
+                    <p><a target="_blank" href="https://codelabs.developers.google.com/codelabs/tensorflowjs-teachablemachine-codelab#0">Transfer Learning Image Classifier<br>with <strong>TensorFlow.js</strong></a></p>
+                    <p class="small"><a target="_blank" href="https://github.com/tensorflow/tfjs-examples/blob/master/mobilenet/imagenet_classes.js">(MobileNet Supported Classes)</a></p>
                 </section>
             </section>
 
@@ -414,6 +458,18 @@
                 </section>
             </section>
 
+            <!-- INSPIRATION -->
+            <section>
+                <h6>Resources</h6>
+                <ul>
+                    <li><a href="https://www.tensorflow.org/js/demos">TensorFlow.js Demos</a></li>
+                    <li><a href="https://www.tensorflow.org/community">TensorFlow Community</a></li>
+                    <li><a href="https://twitter.com/hashtag/madewithtfjs?lang=en">Made With TF.JS</a></li>
+                    <li><a href="https://www.tensorflow.org/js/tutorials">TensorFlow.js Tutorials</a></li>
+                    <li><a href="https://www.coursera.org/learn/browser-based-models-tensorflow">Browser-based Models with TensorFlow.js</a></li>
+                </ul>
+            </section>
+
             <!-- About -->
             <section>
                 <h6>Let's stay in touch. Find me on:</h6>
@@ -425,13 +481,6 @@
                 </p>
             </section>
 
-            <!-- READ MORE -->
-            <section>
-                <p class="fragment">
-                    <strong class="xs">Read More<br>&dtrif;</strong>
-                </p>
-            </section>
-            
         </div>
     </div>
 
